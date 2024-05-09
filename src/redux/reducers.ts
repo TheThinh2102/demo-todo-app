@@ -9,12 +9,12 @@ import {
     UPDATE_SEARCH_TERM 
 } from "./actionTypes";
 
-interface Todo {
+export interface Todo {
     text: string;
-    completed: boolean;
+    isCompleted: boolean;
 }
 
-interface State {
+export interface State {
     todos: Todo[];
     filter: string;
     searchTerm: string;
@@ -31,14 +31,14 @@ const todoReducer = (state: State = initialState, action: { type: string; payloa
         case ADD_TODO:
             return {
                 ...state,
-                todos: [...state.todos, { text: action.payload.text, completed: false }]
+                todos: [...state.todos, { text: action.payload.text, isCompleted: false }]
             };
 
         case TOGGLE_TODO:
             return {
                 ...state,
                 todos: state.todos.map((todo, index) =>
-                    index === action.payload.id ? { ...todo, completed: !todo.completed } : todo
+                    index === action.payload.id ? { ...todo, completed: !todo.isCompleted } : todo
                 )
             };
 

@@ -1,19 +1,20 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import TodoItem from "./TodoItem";
-import { RootState } from "@reduxjs/toolkit/query";
+import { State } from "@/redux/reducers";
+import { Filter } from "../constants/enum";
 
 const TodoList: React.FC = () => {
-    const filteredTodos = useSelector((state: RootState) => {
+    const filteredTodos = useSelector((state: State) => {
         const todos = state.todos;
         const filter = state.filter;
         const searchTerm = state.searchTerm;
 
         return todos.filter((todo) => {
             const matchesFilter =
-                (filter === 'COMPLETED' && todo.completed) ||
-                (filter === 'INCOMPLETE' && !todo.completed) ||
-                filter === 'ALL';
+                (filter === Filter.COMPLETE && todo.isCompleted) ||
+                (filter === Filter.INCOMPLETE && !todo.isCompleted) ||
+                filter === Filter.ALL;
 
             const matchesSearch = todo.text.toLowerCase().includes(searchTerm);
 
